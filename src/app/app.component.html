@@ -1,67 +1,108 @@
-<h1>
-  Welkom bij {{ getName() }}'s filmpagina!
-</h1>
+<!--nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header navbar-left">
+      <form id="loginForm" method="post" class="navbar-form">
+        <fieldset>
+          <div class="form-group">
+            <input id="username" type="text" placeholder="gebruikersnaam" class="form-control">
+          </div>
+          <div class="form-group">
+            <input id="password" type="password" placeholder="wachtwoord" class="form-control">
+          </div>
+          <button id="login" type="submit" class="btn btn-success"><span id="loginLabel">Login</span></button>
+        </fieldset>
+      </form>
+    </div>
+    <div class="navbar-header navbar-right">
+      <form class="navbar-form">
+        <button type="submit" class="btn btn-success">
+          <span>Ververs films</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav-->
+<!-- https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap change default BS colors -->
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+
+
+  <div class="container-fluid">
+
+    <div class="navbar-header navbar-left">
+      <a class="navbar-brand" href="#">Welkom bij {{ name }}'s Bioscoopagenda!</a>
+    </div>
+    <div class="navbar-header navbar-right">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Amsterdam</a></li>
+        <li><a href="#">Rotterdam</a></li>
+        <li><a href="#">Utrecht</a></li>
+        <li><a href="#">Alle steden</a></li>
+        <li><a href="#">Log in</a></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<search></search>
+<login></login>
+
+<br/>
+<div *ngFor="let page of pages" class="btn-group float-right">
+  <button (click)="changePage(page)" class="list-group-item" [class.active]="page == selectedPage">
+    {{ page }}
+  </button>
+</div>
 
 <!--https://css-tricks.com/responsive-data-tables/-->
-
-
 <div class="container-fluid">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>Bewaar</th>
-        <th></th>
-        <th>Titel</th>
-        <th>Beschrijving</th>
-        <th>Vandaag te zien</th>
-        <th>Favouriet</th>
-      </tr>
+    <tr>
+      <th>Bewaar</th>
+      <th></th>
+      <th>Titel</th>
+      <th>Beschrijving</th>
+      <th>Vandaag te zien</th>
+      <th>Favouriet</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor=" let movie of getMovies() ">
-        <td>
-          <input type="checkbox" [(ngModel)]="movie.favorite" />
-        </td>
-        <td>
-          <img [src]="movie.movieDetails.poster" class="poster">
-        </td>
-        <td>
-          <span> {{ movie.title }} </span>
-        </td>
-        <td>
-          <span> {{ movie.movieDetails.plot }} </span>
-        </td>
-        <td>
-          <span>nope</span>
-        </td>
-        <td>
+    <tr *ngFor="let movie of movies">
+      <td>
+        <input type="checkbox" [(ngModel)]="movie.favorite"/>
+      </td>
+      <td>
+          <span [ngSwitch]="movie.movieDetails.poster">
+            <span *ngSwitchCase="null"></span>
+            <span *ngSwitchDefault><img [src]="movie.movieDetails.poster" class="poster"></span>
+          </span>
+      </td>
+      <td>
+        <span> {{movie.title}} </span>
+      </td>
+      <td>
+        <span> {{movie.movieDetails.plot}} </span>
+      </td>
+      <td>
+        <span>nope</span>
+      </td>
+      <td>
           <span [ngSwitch]="movie.favorite">
             <span *ngSwitchCase="true"><span class="badge"><span class="glyphicon glyphicon-ok"></span></span></span>
             <span *ngSwitchDefault></span>
           </span>
-        </td>
-      </tr>
+      </td>
+    </tr>
     </tbody>
   </table>
-</div>
-
-<br />
-<br />
-
-<div class="container-fluid">
-  <ul class="list-group-striped">
-    <li *ngFor=" let movie of getMovies() " class="list-group-item">
-      <h4 class="list-group-item-heading">
-        <input type="checkbox" [(ngModel)]="movie.favorite" />
-        <span> {{ movie.title }} </span>
-        <span [ngSwitch]="movie.favorite">
-          <span *ngSwitchCase="true"><span class="badge"><span class="glyphicon glyphicon-ok"></span></span></span>
-          <span *ngSwitchDefault></span>
-        </span>
-      </h4>
-      <div class="list-group-item-text">
-        <span> {{ movie.movieDetails.plot }} </span>
-      </div>
-    </li>
-  </ul>
 </div>

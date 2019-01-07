@@ -17,13 +17,13 @@ export class MovieDetails {
         poster: string,
         actors: string,
         director: string) {
-            this.year = year;
-            this.rated = rated;
-            this.runtime = runtime;
-            this.plot = plot;
-            this.poster = poster;
-            this.actors = actors;
-            this.director = director;
+        this.year = year;
+        this.rated = rated;
+        this.runtime = runtime;
+        this.plot = plot;
+        this.poster = poster;
+        this.actors = actors;
+        this.director = director;
     }
 
 }

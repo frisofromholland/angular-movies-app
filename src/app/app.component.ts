@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from "./user";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Movie } from './movie';
-import { Observable } from 'rxjs';
+import { User } from "./model/user";
+import { Movie } from './model/movie';
+import { MovieRepository } from "./model/movie.repository";
 
 @Component({
   selector: 'movie-app',
@@ -10,43 +9,47 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  user: User = new User();
-  firstTime: boolean = true;
-  movies: Array<Movie> = new Array<Movie>();
-  moviesObservable: Observable<Movie[]>;
 
-  constructor(private httpClient: HttpClient) {
-    console.log("constructor");
+  public productsPerPage = 15;
+  public selectedPage = 1;
+  user: User = new User("Marieke");
+
+  constructor(private movieRepository: MovieRepository) {
+
   }
 
   ngOnInit() {
-    console.log("onOnit");
-    this.updateMovies()
+    this.movieRepository.updateMovies()
   }
 
-  updateMovies() {
-    console.log("start update");
-    let observable = this.httpClient.get<Movie[]>('http://localhost:8080/movies');
-    observable.subscribe((data: Movie[]) => {
-      this.movies = data;
-      console.log(data);
-      console.log("Yeah data");
-    },
-      error => {
-        console.log("OOPS");
-        console.log(error);
-      }
-    );
-    console.log("end update");
-  }
-
-  getName() {
+  get name(): String {
     return this.user.name;
   }
 
-  getMovies(): Movie[] {
-    console.log("start getMovies");
-    return this.movies;
+  get movies(): Movie[] {
+
+    let startIndex = (this.selectedPage - 1) * this.productsPerPage;
+    let endIndex = startIndex + this.productsPerPage;
+
+    return this.movieRepository.getMovies(startIndex, endIndex);
+  }
+
+  get pages(): number[] {
+
+    let pages: number[] = new Array();
+    let numerOfPages = Math.ceil(this.movieRepository.getMoviesCount() / this.productsPerPage);
+    let count = 1;
+
+    while (count <= numerOfPages) {
+      pages.push(count);
+      count++;
+    }
+
+    return pages;
+  }
+
+  changePage(newPage: number) {
+    this.selectedPage = newPage;
   }
 
 }
