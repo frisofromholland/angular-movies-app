@@ -30,7 +30,7 @@
   <div class="container-fluid">
 
     <div class="navbar-header navbar-left">
-      <a class="navbar-brand" href="#">Welkom bij {{ name }}'s Bioscoopagenda!</a>
+      <a class="navbar-brand" href="/movies">Welkom bij {{ name }}'s Bioscoopagenda!</a>
     </div>
     <div class="navbar-header navbar-right">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
@@ -46,63 +46,12 @@
         <li><a href="#">Rotterdam</a></li>
         <li><a href="#">Utrecht</a></li>
         <li><a href="#">Alle steden</a></li>
-        <li><a href="#">Log in</a></li>
+        <li><a routerLink="/admin">admin</a></li>
       </ul>
     </div>
 
   </div>
 </nav>
 
-<search></search>
-<login></login>
+<router-outlet></router-outlet>
 
-<br/>
-<div *ngFor="let page of pages" class="btn-group float-right">
-  <button (click)="changePage(page)" class="list-group-item" [class.active]="page == selectedPage">
-    {{ page }}
-  </button>
-</div>
-
-<!--https://css-tricks.com/responsive-data-tables/-->
-<div class="container-fluid">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Bewaar</th>
-      <th></th>
-      <th>Titel</th>
-      <th>Beschrijving</th>
-      <th>Vandaag te zien</th>
-      <th>Favouriet</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let movie of movies">
-      <td>
-        <input type="checkbox" [(ngModel)]="movie.favorite"/>
-      </td>
-      <td>
-          <span [ngSwitch]="movie.movieDetails.poster">
-            <span *ngSwitchCase="null"></span>
-            <span *ngSwitchDefault><img [src]="movie.movieDetails.poster" class="poster"></span>
-          </span>
-      </td>
-      <td>
-        <span> {{movie.title}} </span>
-      </td>
-      <td>
-        <span> {{movie.movieDetails.plot}} </span>
-      </td>
-      <td>
-        <span>nope</span>
-      </td>
-      <td>
-          <span [ngSwitch]="movie.favorite">
-            <span *ngSwitchCase="true"><span class="badge"><span class="glyphicon glyphicon-ok"></span></span></span>
-            <span *ngSwitchDefault></span>
-          </span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>

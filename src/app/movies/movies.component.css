@@ -1,0 +1,149 @@
+/* see https://work.smarchal.com/twbscolor/3.3.7/scss/59a6b62dc3a2ecf0f1ecdbff0 and
+https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap change default BS colors */
+.navbar-default {
+  background-color: #59a6b6;
+  border-color: #2dc3a2;
+}
+
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ecdbff;
+}
+
+.navbar-default .navbar-text {
+  color: #ecf0f1;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #ecf0f1;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ecdbff;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #ecdbff;
+  background-color: #2dc3a2;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ecdbff;
+  background-color: #2dc3a2;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #2dc3a2;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #2dc3a2;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ecf0f1;
+}
+
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ecf0f1;
+}
+
+.navbar-default .navbar-link {
+  color: #ecf0f1;
+}
+
+.navbar-default .navbar-link:hover {
+  color: #ecdbff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ecf0f1;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ecdbff;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ecdbff;
+    background-color: #2dc3a2;
+  }
+}
+
+.row > div {
+  border: 1px solid lightgrey;
+  padding: 10px;
+  background-color: aliceblue;
+  margin: 1px 0px;
+  min-height: 45px;
+}
+
+.poster {
+  height: 25%;
+  width: 25%;
+  min-width: 80px;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  /* Hide table headers (but not display: none;, for accessibility) */
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  /*
+    Label the data
+    */
+  td:nth-of-type(1):before {
+    content: "Bewaar";
+    padding-right: 45px;
+  }
+
+  td:nth-of-type(3):before {
+    content: "Titel";
+    padding-right: 65px;
+  }
+
+  td:nth-of-type(5)::before {
+    content: "Vandaag";
+    padding-right: 40px;
+  }
+
+  td:nth-of-type(6)::before {
+    content: "Favouriet";
+    padding-right: 40px;
+  }
+
+  .poster {
+    height: 10%;
+    width: 10%;
+    min-width: 40px;
+  }
+}
