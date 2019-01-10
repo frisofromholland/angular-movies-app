@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from "../model/user";
 import { Movie } from '../model/movie';
 import { MovieRepository } from "../model/movie.repository";
@@ -13,21 +14,23 @@ export class MoviesComponent implements OnInit {
 
   public productsPerPage = 15;
   public selectedPage = 1;
-  user: User = new User("Marieke");
+  user:User = new User("Marieke");
 
-  constructor(private movieRepository: MovieRepository) {
+  constructor(private movieRepository:MovieRepository, private router:Router) {
 
   }
 
   ngOnInit() {
-    this.movieRepository.updateMovies()
+    let url:string = this.router.url;
+    let city = url.substr(url.lastIndexOf("/") + 1);
+    this.movieRepository.updateMovies(city == '' || city == null ? "all" : city);
   }
 
-  get name(): String {
+  get name():String {
     return this.user.name;
   }
 
-  get movies(): Movie[] {
+  get movies():Movie[] {
 
     let startIndex = (this.selectedPage - 1) * this.productsPerPage;
     let endIndex = startIndex + this.productsPerPage;
@@ -35,9 +38,9 @@ export class MoviesComponent implements OnInit {
     return this.movieRepository.getMovies(startIndex, endIndex);
   }
 
-  get pages(): number[] {
+  get pages():number[] {
 
-    let pages: number[] = new Array();
+    let pages:number[] = new Array();
     let numerOfPages = Math.ceil(this.movieRepository.getMoviesCount() / this.productsPerPage);
     let count = 1;
 
@@ -49,12 +52,9 @@ export class MoviesComponent implements OnInit {
     return pages;
   }
 
-  changePage(newPage: number) {
+  changePage(newPage:number) {
     this.selectedPage = newPage;
   }
-
-
-
 
 
 }

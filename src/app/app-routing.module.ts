@@ -6,8 +6,8 @@ import { MoviesComponent } from './movies/movies.component';
 //noinspection TypeScriptValidateTypes
 const routes:Routes = [
   {path: 'admin', component: AdminComponent},
-  {path: 'movies', component: MoviesComponent},
-  {path: '', redirectTo: '/movies', pathMatch: 'full'}
+  {path: 'movies/:city', component: MoviesComponent},
+  {path: '**', redirectTo: '/movies/all', pathMatch: 'full'}
 ];
 
 @NgModule({
