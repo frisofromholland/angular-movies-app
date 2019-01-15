@@ -5,7 +5,6 @@ import { Movie } from './movie';
 @Injectable()
 export class MovieRepository {
 
-  firstTime:boolean = true;
   movies:Array<Movie> = new Array<Movie>();
 
   constructor(private httpClient:HttpClient) {
@@ -13,14 +12,15 @@ export class MovieRepository {
 
 
   updateMovies(city:string) {
-    let observable = this.httpClient.get<Movie[]>('http://localhost:8080/movies/' + city);
-    observable.subscribe((data:Movie[]) => {
-        this.movies = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.httpClient
+      .get<Movie[]>('http://localhost:8080/movies/' + city)
+      .subscribe((data:Movie[]) => {
+          this.movies = data;
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   getMovies(startIndex:number, endIndex:number):Movie[] {

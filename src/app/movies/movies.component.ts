@@ -14,7 +14,6 @@ export class MoviesComponent implements OnInit {
 
   public productsPerPage = 15;
   public selectedPage = 1;
-  user:User = new User("Marieke");
 
   constructor(private movieRepository:MovieRepository, private router:Router) {
 
@@ -24,10 +23,6 @@ export class MoviesComponent implements OnInit {
     let url:string = this.router.url;
     let city = url.substr(url.lastIndexOf("/") + 1);
     this.movieRepository.updateMovies(city == '' || city == null ? "all" : city);
-  }
-
-  get name():String {
-    return this.user.name;
   }
 
   get movies():Movie[] {
