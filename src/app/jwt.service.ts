@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from "rxjs/index";
 import {map} from "rxjs/internal/operators/map";
+import {SessionStorageService} from "ngx-webstorage";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
 
-  private auth_token;
-  private authenticationURL: string = "http://localhost:8080/login";
+  private authenticationURL:string = "http://localhost:8080/login";
 
-  constructor(private httpClient:HttpClient) {
+  constructor(private httpClient:HttpClient, private sessionStorageService:SessionStorageService) {
   }
 
   authenticate(username:string, password:string):Observable<boolean> {
@@ -21,14 +21,13 @@ export class JwtService {
         username: username, password: password
       }, {observe: 'body'})
       .pipe(map(body => {
-        this.auth_token = body;
-        console.log(this.auth_token);
+        this.sessionStorageService.store('jwtToken', body);
         return body != null;
       }));
   }
 
   public authenticated():boolean {
-    return this.auth_token != null;
+    return this.sessionStorageService.retrieve('jwtToken');
   }
 
 }

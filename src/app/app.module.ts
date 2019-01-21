@@ -10,6 +10,7 @@ import { LoginModule } from "./login/login.module";
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { MoviesModule } from './movies/movies.module';
+import {NgxWebstorageModule} from "ngx-webstorage";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MoviesModule } from './movies/movies.module';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    NgxWebstorageModule.forRoot(),
     ModelModule,
     SearchModule,
     LoginModule,
