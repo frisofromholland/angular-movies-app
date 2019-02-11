@@ -1,5 +1,32 @@
 <search></search>
 
+
+<!-- https://blog.angular-university.io/angular-material-data-table/ -->
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="dataSource.loading"></mat-progress-bar>
+
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>title</mat-header-cell>
+    <mat-cell *matCellDef="let movie">{{movie.title}}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Omschrijving</mat-header-cell>
+    <mat-cell *matCellDef="let movie">{{movie.movieDetails.plot}}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
+
+</mat-table>
+
 <br/>
 <div *ngFor="let page of pages" class="btn-group float-right">
   <button (click)="changePage(page)" class="list-group-item" [class.active]="page == selectedPage">

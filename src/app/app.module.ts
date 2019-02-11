@@ -10,7 +10,12 @@ import { LoginModule } from "./login/login.module";
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { MoviesModule } from './movies/movies.module';
-import {NgxWebstorageModule} from "ngx-webstorage";
+import { NgxWebstorageModule } from "ngx-webstorage";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatInputModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
+  MatSortModule, MatTableModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -20,6 +25,13 @@ import {NgxWebstorageModule} from "ngx-webstorage";
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
     NgxWebstorageModule.forRoot(),
     ModelModule,
     SearchModule,
