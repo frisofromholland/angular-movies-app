@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {Movie} from '../model/movie';
 import {MovieRepository} from "../model/movie.repository";
 import {BehaviorSubject, Observable, of} from "rxjs/index";
 import {MatPaginator} from "@angular/material";
-import {catchError, finalize} from "rxjs/operators";
+import {catchError, finalize, tap} from "rxjs/operators";
 import {DataSource} from "@angular/cdk/table";
 
 @Component({
@@ -12,15 +12,13 @@ import {DataSource} from "@angular/cdk/table";
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
 })
-export class MoviesComponent implements OnInit/*, AfterViewInit*/ {
+export class MoviesComponent implements OnInit, AfterViewInit {
 
-  public productsPerPage = 15;
-  public selectedPage = 1;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public displayedColumns = ['title', 'description'];
   public dataSource;
-
+  public size: number;
 
   constructor(private movieRepository: MovieRepository, private router: Router) {
 
@@ -28,30 +26,30 @@ export class MoviesComponent implements OnInit/*, AfterViewInit*/ {
 
   ngOnInit() {
     this.dataSource = new MovieDataSource(this.movieRepository, this.router);
-    this.dataSource.loadMovies()
+    this.dataSource.loadMovies(this.extractCityName(), 0, 10)
+    this.movieRepository.getMoviesCount(this.extractCityName()).pipe().subscribe(nr => this.size = nr);
+  }
+
+  ngAfterViewInit() {
+    this.paginator.page
+      .pipe(
+        tap(() => this.dataSource.loadMovies(this.extractCityName(),this.paginator.pageIndex, this.paginator.pageSize))
+      )
+      .subscribe();
+
+
   }
 
   onRowClicked(row) {
     console.log('Row clicked: ', row);
   }
 
-  get pages(): number[] {
-
-    let pages: number[] = new Array();
-    let numerOfPages = Math.ceil(this.movieRepository.getMoviesCount() / this.productsPerPage);
-    let count = 1;
-
-    while (count <= numerOfPages) {
-      pages.push(count);
-      count++;
-    }
-
-    return pages;
+  private extractCityName(): string {
+    let url: string = this.router.url;
+    let city = url.substr(url.lastIndexOf("/") + 1);
+    return city == '' || city == null ? "all" : city
   }
 
-  changePage(newPage: number) {
-    this.selectedPage = newPage;
-  }
 
 }
 
@@ -60,7 +58,6 @@ export class MoviesComponent implements OnInit/*, AfterViewInit*/ {
 export class MovieDataSource extends DataSource<Movie> {
 
   private myMovies = new BehaviorSubject<Movie[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading = false;
 
   constructor(private movieRepository: MovieRepository, private router: Router) {
@@ -73,42 +70,20 @@ export class MovieDataSource extends DataSource<Movie> {
 
   disconnect() {
     this.myMovies.complete();
-    this.loadingSubject.complete();
   }
 
+  loadMovies(city: string, pageIndex: number, pageSize: number): void {
 
-  loadMovies(): void {
-
-    //this.loadingSubject.next(true);
     this.loading = true;
 
-    let url: string = this.router.url;
-    let city = url.substr(url.lastIndexOf("/") + 1);
-    this.movieRepository.getMovies(city == '' || city == null ? "all" : city)
+    this.movieRepository.getMovies(city, pageIndex, pageSize)
       .pipe(
         catchError(() => of([])),
-        finalize(() => this.loading = false /*this.loadingSubject.next(false)*/)
+        finalize(() => this.loading = false)
       )
       .subscribe(data => {
         this.myMovies.next(data);
       });
-
   }
 
 }
-
-/*export class MovieDataSource extends DataSource<any> {
-  constructor(private movieRepository:MovieRepository, private router:Router) {
-    super();
-  }
-
-  connect():Observable<Movie[]> {
-    let url:string = this.router.url;
-    let city = url.substr(url.lastIndexOf("/") + 1);
-    return this.movieRepository.getMovies2(city == '' || city == null ? "all" : city);
-  }
-
-  disconnect() {
-  }
-}*/
-

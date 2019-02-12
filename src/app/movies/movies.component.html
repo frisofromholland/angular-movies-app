@@ -1,10 +1,10 @@
 <search></search>
 
-
-<!-- https://blog.angular-university.io/angular-material-data-table/ -->
-
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
+<!--
+  https://blog.angular-university.io/angular-material-data-table/
+  https://stackblitz.com/angular/pedprylpomd?file=app%2Fpaginator-configurable-example.html
+-->
+<mat-paginator [length]="size" pageSize="10"  [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 <mat-progress-bar mode="indeterminate" *ngIf="dataSource.loading"></mat-progress-bar>
 
