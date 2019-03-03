@@ -16,7 +16,7 @@ export class MoviesComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns = ['title', 'description'];
+  public displayedColumns = ['save','poster','title', 'description','favorite'];
   public dataSource;
   public size: number;
 
@@ -36,8 +36,6 @@ export class MoviesComponent implements OnInit, AfterViewInit {
         tap(() => this.dataSource.loadMovies(this.extractCityName(),this.paginator.pageIndex, this.paginator.pageSize))
       )
       .subscribe();
-
-
   }
 
   onRowClicked(row) {

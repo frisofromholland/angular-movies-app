@@ -11,8 +11,26 @@
 
 <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
 
+  <ng-container matColumnDef="save">
+    <mat-header-cell *matHeaderCellDef>Bewaar</mat-header-cell>
+    <mat-cell *matCellDef="let movie">
+      <mat-checkbox [checked]  [(ngModel)] = "movie.favorite">
+      </mat-checkbox>
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="poster">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let movie">
+       <span [ngSwitch]="movie.movieDetails.poster">
+            <span *ngSwitchCase="null"></span>
+            <span *ngSwitchDefault><img [src]="movie.movieDetails.poster" class="poster"></span>
+          </span>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="title">
-    <mat-header-cell *matHeaderCellDef>title</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Titel</mat-header-cell>
     <mat-cell *matCellDef="let movie">{{movie.title}}</mat-cell>
   </ng-container>
 
@@ -21,18 +39,23 @@
     <mat-cell *matCellDef="let movie">{{movie.movieDetails.plot}}</mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="favorite">
+    <mat-header-cell *matHeaderCellDef>Favoriet</mat-header-cell>
+    <mat-cell *matCellDef="let movie">
+       <span [ngSwitch]="movie.favorite">
+            <span *ngSwitchCase="true"><span class="badge"><span class="glyphicon glyphicon-ok"></span></span></span>
+            <span *ngSwitchDefault></span>
+          </span>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
   <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowClicked(row)"></mat-row>
 
 </mat-table>
 
-<br/>
-<div *ngFor="let page of pages" class="btn-group float-right">
-  <button (click)="changePage(page)" class="list-group-item" [class.active]="page == selectedPage">
-    {{ page }}
-  </button>
-</div>
+
 
 <!--https://css-tricks.com/responsive-data-tables/-->
 <div class="container-fluid">

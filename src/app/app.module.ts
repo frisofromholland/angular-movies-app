@@ -13,6 +13,7 @@ import { MoviesModule } from './movies/movies.module';
 import { NgxWebstorageModule } from "ngx-webstorage";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MatCheckboxModule,
   MatInputModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule
 } from "@angular/material";
@@ -26,6 +27,7 @@ import {
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatCheckboxModule,
     MatInputModule,
     MatTableModule,
     MatSortModule,
