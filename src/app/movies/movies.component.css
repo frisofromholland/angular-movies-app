@@ -94,20 +94,21 @@ https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-boot
 }
 
 .poster {
-  height: 25%;
-  width: 25%;
-  min-width: 80px;
+  height: 12%;
+  width: 12%;
+  min-width: 30px;
 }
 
+/*
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px) {
 
-  /* Force table to not be like tables anymore */
+  !* Force table to not be like tables anymore *!
   table, thead, tbody, th, td, tr {
     display: block;
   }
 
-  /* Hide table headers (but not display: none;, for accessibility) */
+  !* Hide table headers (but not display: none;, for accessibility) *!
   thead tr {
     position: absolute;
     top: -9999px;
@@ -118,9 +119,9 @@ https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-boot
     border: 1px solid #ccc;
   }
 
-  /*
+  !*
     Label the data
-    */
+    *!
   td:nth-of-type(1):before {
     content: "Bewaar";
     padding-right: 45px;
@@ -144,6 +145,7 @@ https://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-boot
   .poster {
     height: 10%;
     width: 10%;
-    min-width: 40px;
+    min-width: 30px;
   }
 }
+*/

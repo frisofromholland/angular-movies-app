@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { SearchModule } from '../search/search.module'
 import { MoviesComponent } from './movies.component';
 import {
-  MatCheckboxModule,
+  MatCheckboxModule, MatExpansionModule,
   MatInputModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule
 } from "@angular/material";
@@ -16,6 +16,7 @@ import {
     FormsModule,
     SearchModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,

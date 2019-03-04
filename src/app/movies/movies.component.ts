@@ -16,7 +16,7 @@ export class MoviesComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns = ['save','poster','title', 'description','favorite'];
+  public displayedColumns = ['save'];//['save','poster','title', 'description','favorite'];
   public dataSource;
   public size: number;
 
