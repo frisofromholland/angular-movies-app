@@ -12,6 +12,7 @@ export class JwtService {
 
   private SESSION_KEY_JWT_TOKEN:string = 'jwtToken';
   private authenticationURL:string = 'http://localhost:8080/login';
+  private refreshURL:string = '"http://localhost:8080/updatemovies"';
 
 
   constructor(private httpClient:HttpClient, private sessionStorageService:SessionStorageService) {
@@ -31,6 +32,12 @@ export class JwtService {
 
   public authenticated():boolean {
     return this.sessionStorageService.retrieve(this.SESSION_KEY_JWT_TOKEN);
+  }
+
+  public refreshMovies(){
+    this.httpClient.post(
+      this.refreshURL, {}, {headers:{'Authorization':this.sessionStorageService.retrieve(this.SESSION_KEY_JWT_TOKEN)}}
+      ).pipe(map(body => console.log(body)));
   }
 
 }
