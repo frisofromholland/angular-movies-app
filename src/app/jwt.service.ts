@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs/index";
 import {map} from "rxjs/internal/operators/map";
 import {SessionStorageService} from "ngx-webstorage";
@@ -12,7 +12,7 @@ export class JwtService {
 
   private SESSION_KEY_JWT_TOKEN:string = 'jwtToken';
   private authenticationURL:string = 'http://localhost:8080/login';
-  private refreshURL:string = '"http://localhost:8080/updatemovies"';
+  private refreshURL:string = 'http://localhost:8080/updatemovies';
 
 
   constructor(private httpClient:HttpClient, private sessionStorageService:SessionStorageService) {
@@ -32,12 +32,17 @@ export class JwtService {
 
   public authenticated():boolean {
     return this.sessionStorageService.retrieve(this.SESSION_KEY_JWT_TOKEN);
+
   }
 
   public refreshMovies(){
+
     this.httpClient.post(
-      this.refreshURL, {}, {headers:{'Authorization':this.sessionStorageService.retrieve(this.SESSION_KEY_JWT_TOKEN)}}
-      ).pipe(map(body => console.log(body)));
+      this.refreshURL, null, {observe: 'body'}
+    ).pipe(map(body => {
+      return body;
+    })).subscribe(body => console.log(body));
+
   }
 
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router"
 import { AppComponent } from "./app.component";
@@ -10,13 +10,14 @@ import { LoginModule } from "./login/login.module";
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { MoviesModule } from './movies/movies.module';
-import { NgxWebstorageModule } from "ngx-webstorage";
+import {LocalStorageService, NgxWebstorageModule, SessionStorageService} from "ngx-webstorage";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatCheckboxModule,
   MatInputModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSortModule, MatTableModule
 } from "@angular/material";
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,15 @@ import {
     MoviesModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+      deps: [LocalStorageService, SessionStorageService]
+    }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
