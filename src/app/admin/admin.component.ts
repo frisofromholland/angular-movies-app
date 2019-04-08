@@ -15,9 +15,7 @@ export class AdminComponent implements OnInit {
   }
 
   onRefreshClick() {
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     this.jwtService.refreshMovies();
-    console.log("#####################################################################");
   }
 
 }

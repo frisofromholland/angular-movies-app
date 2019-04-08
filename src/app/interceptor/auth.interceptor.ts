@@ -8,15 +8,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('********************************************************************1' + request.url)
     if (!request
       || !request.url
-      || (/^http/.test(request.url)
-          && request.url.includes('localhost:4200'))) {
+      || !(/^http/.test(request.url)
+          && request.url.includes('updatemovies'))) {
       return next.handle(request);
     }
 
-    console.log('********************************************************************2' + request.url)
     const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('jwtToken');
     if (!!token) {
       request = request.clone({
@@ -25,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
-    console.log(request.headers);
     return next.handle(request);
   }
 }
