@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RouterModule } from "@angular/router"
 import { AppComponent } from "./app.component";
 import { ModelModule } from "./model/model.module";
@@ -27,6 +27,7 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatInputModule,

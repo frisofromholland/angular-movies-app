@@ -1,7 +1,8 @@
-import { NgModule } from "@angular/core";
-import { MovieRepository } from "./movie.repository";
+import {NgModule} from "@angular/core";
+import {MovieRepository} from "./movie.repository";
 
 @NgModule({
-    providers: [MovieRepository]
+  providers: [MovieRepository]
 })
-export class ModelModule { }
+export class ModelModule {
+}

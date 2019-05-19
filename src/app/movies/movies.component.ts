@@ -49,7 +49,6 @@ export class MoviesComponent implements OnInit, AfterViewInit {
     return city == '' || city == null ? "all" : city
   }
 
-
 }
 
 

@@ -8,13 +8,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!request
-      || !request.url
-      || !(/^http/.test(request.url)
-          && request.url.includes('updatemovies'))) {
-      return next.handle(request);
-    }
-
     const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('jwtToken');
     if (!!token) {
       request = request.clone({

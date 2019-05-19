@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Movie} from './movie';
 import {Observable} from "rxjs/index";
+import {BACKEND_URL} from "../app.constants";
 
 @Injectable()
 export class MovieRepository {
@@ -11,7 +12,7 @@ export class MovieRepository {
 
   getMovies(city: string, pageIndex: number, pageSize: number): Observable<Movie[]> {
     let params = this.createHttpParameters(city, pageIndex, pageSize);
-    return this.httpClient.get<Movie[]>('http://localhost:8080/movies/paginated', {params});
+    return this.httpClient.get<Movie[]>(BACKEND_URL + 'movies/paginated', {params});
   }
 
   createHttpParameters(city: string, pageIndex: number, pageSize: number): HttpParams {
@@ -24,7 +25,7 @@ export class MovieRepository {
 
   getMoviesCount(city: string): Observable<number> {
     return this.httpClient
-      .get<number>('http://localhost:8080/movies/count?city=' + city);
+      .get<number>(BACKEND_URL + 'movies/count?city=' + city);
   }
 
 }
