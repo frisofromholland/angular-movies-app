@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -8,13 +8,15 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class SearchComponent implements OnInit {
 
+  searchFormSubmitted: boolean = false;
+
   searchForm = new FormGroup({
-    title : new FormControl()
+    title: new FormControl()
   });
 
   constructor(private formBuilder: FormBuilder) {
     this.searchForm = this.formBuilder.group({
-      title: ['',[Validators.required, Validators.minLength(3)]]
+      title: ['', [Validators.required, Validators.minLength(3)]]
     })
   }
 
@@ -23,10 +25,14 @@ export class SearchComponent implements OnInit {
   }
 
   submitMovieSearch() {
-    if(this.searchForm.dirty && this.searchForm.valid){
-      alert(`Titel: ${this.searchForm.value.title}`)
+    if (this.searchForm.dirty) {
+      if (this.searchForm.valid) {
+        this.searchFormSubmitted = false;
+        alert(`Titel: ${this.searchForm.value.title}`)
+      } else {
+        this.searchFormSubmitted = true;
+      }
+
     }
 
   }
-
-}
